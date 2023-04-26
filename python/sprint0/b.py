@@ -3,8 +3,20 @@ from typing import List, Tuple
 
 """
 Без функций
+
 n, a = int(input()), [input().split(), input().split()]
 print(*[a[i % 2][i // 2] for i in range(2 * n)])
+
+Или
+
+n = int(input())                    
+arr1 = list(map(int, input().split()))
+arr2 = list(map(int, input().split()))
+result = []
+for i in range(0, n):
+    result.append(arr1[i])
+    result.append(arr2[i])
+print(" ".join(list(map(str, result))))
 """
 
 
