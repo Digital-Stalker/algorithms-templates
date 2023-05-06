@@ -1,3 +1,4 @@
+# ID: 86977726
 from typing import List
 
 
@@ -13,7 +14,7 @@ def nearest_zero(n: List[int]) -> List:
         elif n[i] == 0:
             step = 0
             idx_zero = i
-    for i in range(len(n) -1, -1, -1):
+    for i in range(len(n) - 1, -1, -1):
         if i > idx_zero:
             continue
         elif n[i] == 0:
@@ -27,7 +28,7 @@ def nearest_zero(n: List[int]) -> List:
 
 
 def read_input() -> List[int]:
-    n = int(input())
+    street = int(input())
     home = list(map(int, input().strip().split()))
     return home
 
