@@ -1,37 +1,35 @@
-# ID: 86977726
+# ID: 87053898
+# Но данный способ работает дольше(
+# Точно не знаю из-за дополнительного условия, длины переменных или без метода map ¯\_(⊙︿⊙)_/¯
 from typing import List
 
 
-def nearest_zero(n: List[int]) -> List:
+def nearest_zero(street: List[int], houses: int) -> List:
     idx_zero = None
     step = 0
-    for i in range(len(n)):
-        if n[i] != 0 and idx_zero is None:
-            n[i] = len(n)
-        elif n[i] != 0:
+    for home in range(houses):
+        if street[home] != 0 and idx_zero is None:
+            street[home] = houses
+        elif street[home] != 0:
             step += 1
-            n[i] = step
-        elif n[i] == 0:
+            street[home] = step
+        elif street[home] == 0:
             step = 0
-            idx_zero = i
-    for i in range(len(n) - 1, -1, -1):
-        if i > idx_zero:
+            idx_zero = home
+    for home in range(houses - 1, -1, -1):
+        if home > idx_zero:
             continue
-        elif n[i] == 0:
+        elif street[home] == 0:
             step = 0
-        elif n[i] == len(n):
+        elif street[home] == houses:
             step += 1
-            n[i] = step
-        elif n[i] != 0:
-            n[i] = min(n[i], n[i + 1] + 1)
-    return n
+            street[home] = step
+        elif street[home] != 0:
+            street[home] = min(street[home], street[home + 1] + 1)
+    return street
 
 
-def read_input() -> List[int]:
-    street = int(input())
-    home = list(map(int, input().strip().split()))
-    return home
-
-
-houses = read_input()
-print(' '.join(map(str, nearest_zero(houses))))
+if __name__ == '__main__':
+    houses = int(input())
+    street = [int(num) for num in input().split()]
+    print(sep=' ', * nearest_zero(street, houses))

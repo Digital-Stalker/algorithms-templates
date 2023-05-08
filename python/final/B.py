@@ -1,26 +1,24 @@
 # ID: 86970332
-from typing import List, Tuple
+# Здесь так же стал больше и работать дольше
+from typing import List
 
 
-def trainer(k, matrix) -> int:
-    keys = []
+def trainer(matrix: List[str], point: int) -> int:
+    nums = {'1': 0, '2': 0, '3': 0, '4': 0, '5': 0,
+            '6': 0, '7': 0, '8': 0, '9': 0, '0': 0}
     scores = 0
-    for i in range(4):
-        for n in matrix[i]:
-            if n == '.':
-                continue
-            keys.append(int(n))
-    for i in range(1, 10):
-        if 0 < keys.count(i) <= 2 * k:
+    for vl in matrix:
+        if vl in nums:
+            nums[vl] += 1
+        else:
+            nums[vl] = 1
+    for t in range(1, 10):
+        if nums[str(t)] and nums[str(t)] <= point * 2:
             scores += 1
     return scores
 
 
-def read_input() -> Tuple[int, List[str]]:
-    k = int(input())
-    matrix = [str(input()) for i in range(4)]
-    return k, matrix
-
-
-k, matrix = read_input()
-print(trainer(k, matrix))
+if __name__ == '__main__':
+    point = int(input())
+    matrix = list((''.join([input() for _i in range(4)])).replace('.', ''))
+    print(trainer(matrix, point))
