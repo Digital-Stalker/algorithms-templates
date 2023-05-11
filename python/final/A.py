@@ -1,6 +1,4 @@
-# ID: 87053898
-# Но данный способ работает дольше(
-# Точно не знаю из-за дополнительного условия, длины переменных или без метода map ¯\_(⊙︿⊙)_/¯
+# ID: 87175611
 from typing import List
 
 
@@ -32,4 +30,4 @@ def nearest_zero(street: List[int], houses: int) -> List:
 if __name__ == '__main__':
     houses = int(input())
     street = [int(num) for num in input().split()]
-    print(sep=' ', * nearest_zero(street, houses))
+    print(*nearest_zero(street, houses), sep=' ')
