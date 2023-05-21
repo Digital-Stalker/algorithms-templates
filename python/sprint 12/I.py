@@ -20,11 +20,11 @@ class MyQueueSized:
     def pop(self):
         if self.is_empty():
             return None
-        x = self.queue[self.head]
+        del_elem = self.queue[self.head]
         self.queue[self.head] = None
         self.head = (self.head + 1) % self.max_n
         self.size -= 1
-        return x
+        return del_elem
 
     def peek(self):
         return self.queue[self.head]
