@@ -1,61 +1,74 @@
-# 87600872
-class Dec:
+# 87672793
+class Deque:
     def __init__(self, elem):
         self.max_elem = elem
-        self.dec = [None] * elem
-        self.head = 0
-        self.tail = 0
-        self.size = 0
+        self.__dec = [None] * elem
+        self.__head = 0
+        self.__tail = 0
+        self.__size = 0
 
     def push_back(self, value):
-        if self.size != self.max_elem:
-            self.dec[self.head - 1] = value
-            self.head = (self.head - 1) % self.max_elem
-            self.size += 1
+        if self.__size != self.max_elem:
+            self.__dec[self.__head - 1] = value
+            self.__head = (self.__head - 1) % self.max_elem
+            self.__size += 1
         else:
-            return 'error'
+            raise IndexError
 
     def push_front(self, value):
-        if self.size != self.max_elem:
-            self.dec[self.tail] = value
-            self.tail = (self.tail + 1) % self.max_elem
-            self.size += 1
+        if self.__size != self.max_elem:
+            self.__dec[self.__tail] = value
+            self.__tail = (self.__tail + 1) % self.max_elem
+            self.__size += 1
         else:
-            return 'error'
+            raise IndexError
 
     def pop_front(self):
-        if self.size == 0:
-            return 'error'
-        pop_elem = self.dec[self.tail - 1]
-        self.dec[self.tail - 1] = None
-        self.tail = (self.tail - 1) % self.max_elem
-        self.size -= 1
-        return pop_elem
+        if self.__size != 0:
+            pop_elem = self.__dec[self.__tail - 1]
+            self.__dec[self.__tail - 1] = None
+            self.__tail = (self.__tail - 1) % self.max_elem
+            self.__size -= 1
+            return pop_elem
+        else:
+            raise IndexError
 
     def pop_back(self):
-        if self.size == 0:
-            return 'error'
-        pop_elem = self.dec[self.head]
-        self.dec[self.head] = None
-        self.head = (self.head + 1) % self.max_elem
-        self.size -= 1
-        return pop_elem
+        if self.__size != 0:
+            pop_elem = self.__dec[self.__head]
+            self.__dec[self.__head] = None
+            self.__head = (self.__head + 1) % self.max_elem
+            self.__size -= 1
+            return pop_elem
+        else:
+            raise IndexError
 
 
 def get_dec(size, commands):
-    dec = Dec(size)
+    dec = Deque(size)
     answer = []
-    for com in commands:
-        if com.split(' ')[0] == 'push_back':
-            if dec.push_back(int(com.split(' ')[1])) == 'error':
+    for _com in commands:
+        comm, *args = _com.split()
+        if comm == 'push_back':
+            try:
+                dec.push_back(int(*args))
+            except IndexError:
                 answer.append('error')
-        elif com.split(' ')[0] == 'push_front':
-            if dec.push_front(int(com.split(' ')[1])) == 'error':
+        elif comm == 'push_front':
+            try:
+                dec.push_front(int(*args))
+            except IndexError:
                 answer.append('error')
-        elif com == 'pop_front':
-            answer.append(dec.pop_front())
-        elif com == 'pop_back':
-            answer.append(dec.pop_back())
+        elif comm == 'pop_front':
+            try:
+                answer.append(dec.pop_front())
+            except IndexError:
+                answer.append('error')
+        elif comm == 'pop_back':
+            try:
+                answer.append(dec.pop_back())
+            except IndexError:
+                answer.append('error')
     return answer
 
 

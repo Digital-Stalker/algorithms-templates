@@ -1,30 +1,30 @@
-# 87634595
-def calculator_polska(operators: list) -> int:
-    stack = []
+# 87695963
+class Stack:
+    def __init__(self):
+        self.items = []
+
+    def push(self, item):
+        self.items.append(item)
+
+    def pop(self):
+        return self.items.pop()
+
+
+def calculator_polska(operators: list):
+    stack = Stack()
+    operations = {
+        '+': lambda a, b: a + b,
+        '-': lambda a, b: a - b,
+        '*': lambda a, b: a * b,
+        '/': lambda a, b: a // b
+    }
     for value in operators:
-        if value == '+':
-            val2 = stack[0]
-            val1 = stack[1]
-            calc = int(val1) + int(val2)
-            stack = [calc] + stack[2:]
-        elif value == '-':
-            val2 = stack[0]
-            val1 = stack[1]
-            calc = int(val1) - int(val2)
-            stack = [calc] + stack[2:]
-        elif value == '*':
-            val2 = stack[0]
-            val1 = stack[1]
-            calc = int(val1) * int(val2)
-            stack = [calc] + stack[2:]
-        elif value == '/':
-            val2 = stack[0]
-            val1 = stack[1]
-            calc = int(val1) // int(val2)
-            stack = [calc] + stack[2:]
+        if value in operations:
+            val1, val2 = stack.pop(), stack.pop()
+            stack.push(operations[value](val2, val1))
         else:
-            stack = [value] + stack
-    return stack[0]
+            stack.push(int(value))
+    return stack.pop()
 
 
 if __name__ == '__main__':
