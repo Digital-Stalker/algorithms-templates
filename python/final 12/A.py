@@ -1,4 +1,4 @@
-# 87672793
+# 87813660
 class Deque:
     def __init__(self, elem):
         self.max_elem = elem
@@ -48,28 +48,12 @@ def get_dec(size, commands):
     dec = Deque(size)
     answer = []
     for _com in commands:
-        comm, *args = _com.split()
-        if comm == 'push_back':
-            try:
-                dec.push_back(int(*args))
-            except IndexError:
-                answer.append('error')
-        elif comm == 'push_front':
-            try:
-                dec.push_front(int(*args))
-            except IndexError:
-                answer.append('error')
-        elif comm == 'pop_front':
-            try:
-                answer.append(dec.pop_front())
-            except IndexError:
-                answer.append('error')
-        elif comm == 'pop_back':
-            try:
-                answer.append(dec.pop_back())
-            except IndexError:
-                answer.append('error')
-    return answer
+        try:
+            comm, *args = _com.split()
+            answer.append(getattr(dec, comm)(*args))
+        except IndexError:
+            answer.append('error')
+    return list(filter(None, answer))
 
 
 if __name__ == '__main__':
